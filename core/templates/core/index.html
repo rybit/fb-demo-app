@@ -1,1 +1,158 @@
-../../../InterviewApp/public/index.html
+<head>
+  <link rel='stylesheet' type='text/css' href='/static/ext/css/jquery.datetimepicker.css'>
+  <link rel='stylesheet' type='text/css' href='/static/ext/css/bootstrap.css'>
+  <link rel='stylesheet' type='text/css' href='/static/ext/css/metricsgraphics.css'>
+
+  <link rel='stylesheet' type='text/css' href='/static/core/main.css'>
+</head>
+
+<body>
+  <script>
+    var page_ids = {};
+  </script>
+
+  <div id='header'>
+    <select id='page-list'></select>
+    <button id='logout' class='btn btn-primary'>Logout</button>
+    <button id='post-button' class='btn btn-primary' disabled
+            data-toggle='modal' data-target='#new-post-modal'>New Post</button>
+  </div>
+
+  <div id='login'>
+    <div id='status'></div>
+    <fb:login-button scope="public_profile,read_insights,manage_pages,publish_actions" onlogin="checkLoginState();">
+    <!-- <fb:login-button scope="public_profile,read_insights,publish_actions" onlogin="checkLoginState();"> -->
+    </fb:login-button>
+  </div>
+
+  <div id='content-wrapper'>
+    <div id='pending-posts-container'>
+      <div class='collabel'>
+        <span>Pending Posts</span>
+        <button id='pending-search' class='btn btn-sm'>
+          <span class="glyphicon glyphicon-search"></span>
+        </button>
+      </div>
+      <div class='filterbar' id='pending-filter'>
+        <div class='input-group input-group-sm'>
+          <input id='creatorfilter' type='text'
+                 class='form-control' placeholder='Creator Filter'>
+          <span class='input-group-btn'>
+            <button class='btn btn-default' type='button'>
+            <span class='glyphicon glyphicon-remove'></span>
+            </button>
+          </span>
+        </div>
+        <div class='input-group input-group-sm'>
+          <input id='contentfilter' type='text'
+                 class='form-control' placeholder='Content Filter'>
+          <span class='input-group-btn'>
+            <button class='btn btn-default' type='button'>
+            <span class='glyphicon glyphicon-remove'></span>
+            </button>
+          </span>
+        </div>
+      </div>
+      <div id='pending-posts'>
+        <!-- filled in by JS -->
+      </div>
+    </div>
+    <div id='past-posts-container'>
+      <div class='collabel'>
+        <span>Past Posts</span>
+        <button id='past-search' class='btn btn-sm'>
+          <span class="glyphicon glyphicon-search"></span>
+        </button>
+      </div>
+      <div class='filterbar' id='past-filter'>
+        <div class='input-group input-group-sm'>
+          <input id='creatorfilter' type='text'
+                 class='form-control' placeholder='Creator Filter'>
+          <span class='input-group-btn'>
+            <button class='btn btn-default' type='button'>
+            <span class='glyphicon glyphicon-remove'></span>
+            </button>
+          </span>
+        </div>
+        <div class='input-group input-group-sm'>
+          <input id='contentfilter' type='text'
+                 class='form-control' placeholder='Content Filter'>
+          <span class='input-group-btn'>
+            <button class='btn btn-default' type='button'>
+            <span class='glyphicon glyphicon-remove'></span>
+            </button>
+          </span>
+        </div>
+      </div>
+      <div id='past-posts'>
+        <!-- filled in by JS -->
+      </div>
+    </div>
+  </div> <!-- content-wrapper -->
+
+  <div id='chart-wrapper'>
+    <button id='chart-toggle' class='btn btn-default'>Show Chart</button>
+    <div id='chart-container'></div>
+  </div>
+
+  <!-- ************************************************************
+            NEW POST MODAL
+  ************************************************************* -->
+  <div class="modal fade" id="new-post-modal"
+        tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">New Post</h4>
+        </div>
+        <div class="modal-body">
+          <!--
+          <div class='row'>
+            <div class="col-lg-6">
+              <div class='input-group'>
+                <input name='img-path' type='text'
+                       class='form-control' placeholder='Attach image...'>
+                <span class='input-group-btn'>
+                  <button class='btn btn-default' type='button'>
+                    <span class="glyphicon glyphicon-folder-open"></span>
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+          -->
+          <textarea id='message' name='text'></textarea>
+          <div class='row'>
+            <div class="col-lg-6">
+              <div class='input-group'>
+                <input id='vizdate' type='text' required
+                       class='form-control' placeholder='Post Date'>
+                <span class='input-group-btn'>
+                  <button id='showcal' class='btn btn-default' type='button'>
+                    <span class="glyphicon glyphicon-calendar"></span>
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button id='do-post' type="submit" class="btn btn-primary" data-dismiss="modal">Post</button>
+        </div>
+      </div>
+    </div>
+  </div><!-- new post modal -->
+
+  <script type="text/javascript" src="/static/ext/js/jquery.js"></script>
+  <script type="text/javascript" src="/static/ext/js/jquery-ui.js"></script>
+  <script type="text/javascript" src="/static/ext/js/jquery.datetimepicker.js"></script>
+  <script type="text/javascript" src="/static/ext/js/bootstrap.js"></script>
+  <script type="text/javascript" src="/static/ext/js/d3.js"></script>
+  <script type="text/javascript" src="/static/ext/js/metricsgraphics.js"></script>
+
+  <script type="text/javascript" src="/static/core/list-builder.js"></script>
+  <script type="text/javascript" src="/static/core/main.js"></script>
+  <script type="text/javascript" src="/static/core/fb.js"></script>
+</body>
