@@ -21,7 +21,6 @@
   <div id='login'>
     <div id='status'></div>
     <fb:login-button scope="public_profile,read_insights,manage_pages,publish_actions" onlogin="checkLoginState();">
-    <!-- <fb:login-button scope="public_profile,read_insights,publish_actions" onlogin="checkLoginState();"> -->
     </fb:login-button>
   </div>
 
@@ -35,22 +34,16 @@
       </div>
       <div class='filterbar' id='pending-filter'>
         <div class='input-group input-group-sm'>
-          <input id='creatorfilter' type='text'
-                 class='form-control' placeholder='Creator Filter'>
+          <input class='contentfilter form-control' type='text' placeholder='Content Filter'>
           <span class='input-group-btn'>
-            <button class='btn btn-default' type='button'>
+            <button class='filter-clear btn btn-default' type='button'>
             <span class='glyphicon glyphicon-remove'></span>
             </button>
           </span>
         </div>
         <div class='input-group input-group-sm'>
-          <input id='contentfilter' type='text'
-                 class='form-control' placeholder='Content Filter'>
-          <span class='input-group-btn'>
-            <button class='btn btn-default' type='button'>
-            <span class='glyphicon glyphicon-remove'></span>
-            </button>
-          </span>
+          <input class='has-pic' type='checkbox' aria-label='Has Picture'>
+          <span>  Has Picture</span>
         </div>
       </div>
       <div id='pending-posts'>
@@ -66,22 +59,16 @@
       </div>
       <div class='filterbar' id='past-filter'>
         <div class='input-group input-group-sm'>
-          <input id='creatorfilter' type='text'
-                 class='form-control' placeholder='Creator Filter'>
+          <input class='contentfilter form-control' type='text' placeholder='Content Filter'>
           <span class='input-group-btn'>
-            <button class='btn btn-default' type='button'>
+            <button class='filter-clear btn btn-default' type='button'>
             <span class='glyphicon glyphicon-remove'></span>
             </button>
           </span>
         </div>
         <div class='input-group input-group-sm'>
-          <input id='contentfilter' type='text'
-                 class='form-control' placeholder='Content Filter'>
-          <span class='input-group-btn'>
-            <button class='btn btn-default' type='button'>
-            <span class='glyphicon glyphicon-remove'></span>
-            </button>
-          </span>
+          <input class='has-pic' type='checkbox' aria-label='Has Picture'>
+          <span>  Has Picture</span>
         </div>
       </div>
       <div id='past-posts'>
@@ -154,5 +141,6 @@
 
   <script type="text/javascript" src="/static/core/list-builder.js"></script>
   <script type="text/javascript" src="/static/core/main.js"></script>
+  <script type="text/javascript" src="/static/core/filters.js"></script>
   <script type="text/javascript" src="/static/core/fb.js"></script>
 </body>

@@ -35,11 +35,6 @@ function showLogin(rsp) {
   $('#post-button').prop('disabled', true);
 }
 
-function popUser(rsp) {
-  $('#username').text(rsp.first_name);
-  $('#creator').text(rsp.first_name);
-}
-
 function popPosts(pageid) {
   $('.post-container').remove();
 
@@ -67,22 +62,28 @@ function popPosts(pageid) {
 }
 
 function popPageList(rsp) {
-  $.each(rsp.data,
-    function(idx, datum) {
-      if(datum.perms.indexOf("CREATE_CONTENT") > 0) {
-        page_ids[datum.id] = datum;
+  if(rsp.error) {
+    showAlert(rsp.error.message);
+  } else if (rsp.data.length == 0) {
+    showAlert("Didn't find any pages for you to administrate");
+  } else {
+    $.each(rsp.data,
+      function(idx, datum) {
+        if(datum.perms.indexOf("CREATE_CONTENT") > 0) {
+          page_ids[datum.id] = datum;
 
-        FB.api(datum.id, function(rsp) {
-          if(rsp && !rsp.error) {
-            var el = elemAndClass('option', '');
-            $(el).val(rsp.id).text(rsp.name);
-            $('#page-list').append(el);
-            popPosts(rsp.id);
-          }
-        });
+          FB.api(datum.id, function(rsp) {
+            if(rsp && !rsp.error) {
+              var el = elemAndClass('option', '');
+              $(el).val(rsp.id).text(rsp.name);
+              $('#page-list').append(el);
+              popPosts(rsp.id);
+            }
+          });
+        }
       }
-    }
-  );
+    );
+  }
 }
 
 function popPage() {
@@ -91,7 +92,6 @@ function popPage() {
   $('#content-wrapper').show();
   $('#post-button').prop('disabled', false);
 
-  FB.api('me', popUser);
   FB.api('me/accounts', popPageList);
 
   // popPosts(page_id);
@@ -103,14 +103,8 @@ function statusChangeCallback(rsp) {
       popPage();
     } else if (rsp.status === 'not_authorized') {
       showLogin();
-      // The person is logged into Facebook, but not your app.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into this app.';
     } else {
-      // The person is not logged into Facebook, so we're not sure if
-      // they are logged into this app or not.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into Facebook.';
+      showAlert('Please log into Facebook');
     }
 }
 
