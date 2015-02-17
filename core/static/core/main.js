@@ -1,10 +1,14 @@
 function emptyCheck(selector, defaultVal) {
   var el = $(selector)
+  var span = document.createElement('span');
+  span.className = 'empty-text';
+  span.innerHTML = defaultVal;
   if(el.children().size() == 0) {
-    el.text(defaultVal);
+    el.append(span);
     el.addClass('empty-list');
   } else {
     el.removeClass('empty-list');
+    el.children('.empty-text').remove();
   }
 }
 

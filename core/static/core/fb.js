@@ -50,8 +50,8 @@ function popPosts(pageid) {
 
         updatePendingTimes();
         window.setInterval(updatePendingTimes, 1000);
-        emptyCheck('#past-posts', "No Past Posts");
       });
+      emptyCheck('#past-posts', "No Past Posts");
     }
   );
 
